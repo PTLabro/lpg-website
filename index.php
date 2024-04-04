@@ -39,11 +39,43 @@ session_start();
               </li>
             </ul>
             <span class="ml-5">
-              <button class="btn btn-outline-white my-2 my-sm-0 mx-3" data-toggle="modal" data-target="#exampleModal">Sign-up</button>
+              <button class="btn btn-primary my-2 my-sm-0 mx-3" data-toggle="modal" data-target="#modal_login">Log-in</button>
             </span>
           </div>
-          <!-- Modal -->
-              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <!-- Modal LOG-IN -->
+          <form action="Includes/login.php" method="POST">
+              <div class="modal fade" id="modal_login" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Log-in</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                          <label for="exampleFormControlInput1">Phone number</label>
+                          <input type="text" name="phone" class="form-control" id="exampleFormControlInput1" placeholder="Enter your phone number">
+                        </div>
+                        <div class="form-group">
+                          <label for="exampleFormControlInput1">Password</label>
+                          <input type="password" name="password" class="form-control" id="exampleFormControlInput1" placeholder="Password">
+                        </div>
+                    </div>
+                    <div class="modal-footer d-flex flex-column justify-content-center">
+                      <button type="submit" class="btn btn-primary w-100 mx-0 " name="login-btn">Log-in</button>
+                      <button type="button" class="btn btn-secondary w-100 mx-0 mt-2" data-dismiss="modal">Close</button>
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center my-3"><p>Don't have an account? <a href="#" data-toggle="modal" data-target="#modal_signup">Sign-up</a></p></div>
+                  </div>
+                </div>
+              </div> 
+          </div>
+          </form>
+          <!-- MODAL - SIGNUP --> 
+          <form action="Includes/signup.php" method="POST">
+            <div class="modal fade" id="modal_signup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
@@ -52,39 +84,55 @@ session_start();
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
+                    <?php 
+                      if(isset($_SESSION['status']) && $_SESSION['status'] != '')
+                      {   
+                      ?>
+                          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <strong>Hey !</strong> <?php  echo $_SESSION['status']; ?>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <?php
+                          unset($_SESSION['status']);
+                      }
+                      ?>
+
                     <div class="modal-body">
-                      <form>
                         <div class="form-group">
                           <label for="exampleFormControlInput1">Email address</label>
-                          <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="ex.Juan15@gmail.com">
+                          <input type="email" class="form-control" name="email" id="exampleFormControlInput1" placeholder="ex.Juan15@gmail.com">
                         </div>
                         <div class="form-group">
                           <label for="exampleFormControlInput1">Fullname</label>
-                          <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="ex.Chell B. Gorg">
+                          <input type="fullname" class="form-control" name="name" id="exampleFormControlInput1" placeholder="ex.Chell B. Gorg">
                         </div>
                         <div class="form-group">
                           <label for="exampleFormControlInput1">Cellphone Number#</label>
-                          <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="ex.09123456789">
+                          <input type="text" class="form-control" name="phone" id="exampleFormControlInput1" placeholder="ex.09123456789">
                         </div>
                         <div class="form-group">
                           <label for="exampleFormControlInput1">Complete Address</label>
-                          <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="ex.Champaca St. Western Bicutan, Taguig City">
+                          <input type="text" class="form-control" name="address" id="exampleFormControlInput1" placeholder="ex.Champaca St. Western Bicutan, Taguig City">
                         </div>
                         <div class="form-group">
                           <label for="exampleFormControlInput1">Password</label>
-                          <input type="email" class="form-control" id="exampleFormControlInput1">
-
+                          <input type="password" class="form-control" name="password" id="exampleFormControlInput1">
                         </div>
-                      </form>
+                        
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      <button type="but ton" class="btn btn-primary">Save changes</button>
+                      <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                      <button type="submit" name="save_data" class="btn btn-primary">Sign-up</button>
                     </div>
+                    <div class="d-flex justify-content-center align-items-center my-3"><p>Already have an account? <a href="#" data-toggle="modal" data-target="#modal_signup">Log-in</a></p></div>
                   </div>
                 </div>
               </div>
             </div>
+            </form>
+          <!-- HERO -->
           <div class="border border-info d-flex justify-content-center hero">
             <div class="d-flex align-items-center justify-content-center flex-wrap-reverse">
               <div>
@@ -95,9 +143,11 @@ session_start();
                 <h1 class="font-weight-bold">TAMANG LAMAN,</h1>
                 <h1 class="font-weight-bold">SA TAMANG PRESYO</h1>
                 <p class="font-weight-bold">Monday to Sunday- 6:00 am to 8:00 pm</p>
+                <button class="btn btn-dark w-100">ORDER NOW!!</button>
               </span>
             </div>
           </div>
+          
             <div class="container-fluid d-flex justify-content-around flex-wrap py-5 card-bg">
               <div class="card" style="width: 15rem;">
                 <div class="card-body border border-warning">
