@@ -74,7 +74,7 @@ session_start();
           </div>
           </form>
           <!-- MODAL - SIGNUP --> 
-          <form action="Includes/signup.php" method="POST">
+          <form action="Includes/signup.inc.php" method="POST">
             <div class="modal fade" id="modal_signup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
@@ -84,20 +84,6 @@ session_start();
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
-                    <?php 
-                      if(isset($_SESSION['status']) && $_SESSION['status'] != '')
-                      {   
-                      ?>
-                          <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                            <strong>Hey !</strong> <?php  echo $_SESSION['status']; ?>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <?php
-                          unset($_SESSION['status']);
-                      }
-                      ?>
 
                     <div class="modal-body">
                         <div class="form-group">
@@ -120,11 +106,14 @@ session_start();
                           <label for="exampleFormControlInput1">Password</label>
                           <input type="password" class="form-control" name="password" id="exampleFormControlInput1">
                         </div>
-                        
+                        <div class="form-group">
+                          <label for="exampleFormControlInput1">Repeat Password</label>
+                          <input type="password" class="form-control" name="pwdRepeat" id="exampleFormControlInput1">
+                        </div>
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                      <button type="submit" name="save_data" class="btn btn-primary">Sign-up</button>
+                      <button type="submit" name="signup_confirm" class="btn btn-primary">Sign-up</button>
                     </div>
                     <div class="d-flex justify-content-center align-items-center my-3"><p>Already have an account? <a href="#" data-toggle="modal" data-target="#modal_signup">Log-in</a></p></div>
                   </div>
